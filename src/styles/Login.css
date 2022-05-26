@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.loginImg {
+  width: 100%;
+  max-width: 546px;
+}
+
+.loginTitle{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 110%;
+  text-align: center;
+  letter-spacing: -0.03em;
+  color: #244677;
+  margin: 0;
+}
+
+.loginSubTitle{
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 144%;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #495057;
+  opacity: 0.64;
+  margin-top: 20px;
+
+}
