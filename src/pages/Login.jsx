@@ -1,23 +1,36 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import React, {useState, useContext} from 'react';
+import {Button, CssBaseline, TextField, Paper, Box, Grid} from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginImg from '../assets/loginImg.png';
+import MyContext from '../context';
+import axios from 'axios';
 import '../styles/Login.css';
 
 const theme = createTheme();
 
 export default function SignInSide() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { handleLogin, URL } = useContext(MyContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    setError(false);
+    setLoading(true);
+    axios.post(`${URL}/auth/login`, {
+      email,
+      password,
+    }).then(response => {
+      handleLogin(response.data.token);
+      console.log(response.data)
+      setLoading(false);
+    }).catch(error => {
+      setError(true);
+      setLoading(false);
+      console.log(error);
     });
   };
 
@@ -76,28 +89,32 @@ export default function SignInSide() {
                 fullWidth
                 id="email"
                 label="Email"
-                name="email"
+                value={email}
                 autoComplete="email"
                 autoFocus
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                value={password}
                 label="Senha"
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <Button
+              {error && (<p className='errorMessage'>Usuário ou senha inválidos</p>)}
+              <LoadingButton
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, backgroundColor: '#12295B', height: '56px' }}
+                loading={loading}
               >
                 Fazer login
-              </Button>
+              </LoadingButton>
             </Box>
           </Box>
         </Grid>
