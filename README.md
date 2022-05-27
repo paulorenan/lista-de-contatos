@@ -8,6 +8,13 @@ WebSite para gerenciar uma lista de contatos.
 
 React, React-Router, Context, Axios, Material-UI
 
+## Funcionalidades
+
+- Listar Contatos
+- Atualizar os Contatos
+- Excluir Contatos
+- Criar Contatos
+
 ## Rodando localmente
 
 Clone o projeto
