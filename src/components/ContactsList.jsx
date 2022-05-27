@@ -1,9 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 import ContactsTable from './ContactsTable';
 import '../styles/Contacts.css';
 
 function ContactsList() {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{
       alignSelf: 'center',
@@ -17,7 +20,7 @@ function ContactsList() {
     }}>
       <div className='contactsList'>
         <p className='contactsTitle'>Listagem de contatos</p>
-        <Button className='contactsButton' variant='contained' color='primary'>
+        <Button className='contactsButton' variant='contained' onClick={() => navigate('/register')}>
           Adicionar novo contato
         </Button>
       </div>
