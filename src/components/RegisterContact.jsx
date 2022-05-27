@@ -112,7 +112,13 @@ function RegisterContact() {
           />
         </Box>
         <LoadingButton
-          className='registerBtn'
+          sx={{
+            width: '100%',
+            marginTop: '50px',
+            background: '#12295B',
+            borderRadius: '8px',
+            height: '56px',
+          }}
           type='submit'
           variant='contained'
           loading={loading}
