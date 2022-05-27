@@ -32,5 +32,16 @@
   color: #495057;
   opacity: 0.64;
   margin-top: 20px;
+}
 
+.errorMessage{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  margin-bottom: 0;
+  line-height: 144%;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #E74C3C;
+  margin-top: 20px;
 }
