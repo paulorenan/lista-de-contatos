@@ -8,8 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import MyContext from '../context';
 import { Button } from '@mui/material';
-import editIcon from '../assets/edit.svg';
 import deleteIcon from '../assets/trash.svg';
+import EditDialog from './EditDialog';
 
 export default function BasicTable() {
   const [rows, setRows] = useState([]);
@@ -24,6 +24,17 @@ export default function BasicTable() {
         console.log(error);
       });
   }, [axios, URL]);
+
+  function fetchContacts() {
+    axios.get(`${URL}/contacts`)
+      .then(response => {
+        setRows(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
 
   function telMask(number){
     number= number.replace(/\D/g,"");
@@ -87,10 +98,7 @@ export default function BasicTable() {
               <TableCell sx={rowsStyle}>{telMask(row.mobile)}</TableCell>
               <TableCell sx={rowsStyle}>{row.email}</TableCell>
               <TableCell sx={rowsStyle}>
-                <Button variant="text" color="primary" size="small">
-                  <img src={editIcon} alt="Editar" />
-                  <p className='actionBtn'>Editar</p>
-                </Button>
+                <EditDialog row={row} fetchContacts={fetchContacts} />
                 <Button variant="text" color="primary" size="small" sx={{marginLeft: '1rem'}}>
                   <img src={deleteIcon} alt="Excluir" />
                   <p className='actionBtn'>Excluir</p>
