@@ -25,12 +25,10 @@ export default function SignInSide() {
       password,
     }).then(response => {
       handleLogin(response.data.token);
-      console.log(response.data)
       setLoading(false);
     }).catch(error => {
       setError(true);
       setLoading(false);
-      console.log(error);
     });
   };
 
