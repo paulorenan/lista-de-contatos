@@ -4,7 +4,7 @@ import arrowLeft from '../assets/arrow-left.svg';
 
 function Header({voltar}) {
   return (
-    <AppBar position="static" color="default">
+    <AppBar position="static" sx={{ backgroundColor: '#FFFFFF' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Button onClick={voltar}>

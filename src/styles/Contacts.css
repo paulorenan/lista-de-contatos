@@ -1,0 +1,21 @@
+.contactsTitle{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 124%;
+  color: #244677;
+}
+
+.contactsList{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contactsButton{
+  width: 239px;
+  height: 56px;
+  background: #4263EB;
+  border-radius: 8px;
+}
