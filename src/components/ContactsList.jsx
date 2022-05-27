@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Button, Typography } from '@mui/material';
+import ContactsTable from './ContactsTable';
 import '../styles/Contacts.css';
 
 function ContactsList() {
@@ -20,6 +21,7 @@ function ContactsList() {
           Adicionar novo contato
         </Button>
       </div>
+      <ContactsTable />
     </Box>
   )
 }

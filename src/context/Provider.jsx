@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import MyContext from '.';
+import axios from 'axios';
 
 function Provider({children}) {
   const [token, setToken] = useState(null);
@@ -12,6 +13,7 @@ function Provider({children}) {
     if (token) {
       setToken(token);
       setAuth(true);
+      axios.defaults.headers.common['Authorization'] = `bearer ${token}`;
     }
   }, []);
 
@@ -19,6 +21,7 @@ function Provider({children}) {
     localStorage.setItem('token', token);
     setToken(token);
     setAuth(true);
+    axios.defaults.headers.common['Authorization'] = `bearer ${token}`;
   };
 
   const handleLogout = () => {
@@ -33,6 +36,7 @@ function Provider({children}) {
     handleLogin,
     handleLogout,
     URL,
+    axios,
   };
 
   return (
