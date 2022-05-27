@@ -1,6 +1,5 @@
 import React, {useState, useContext} from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -10,7 +9,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import MyContext from '../context';
 import deleteIcon from '../assets/trash.svg';
 
-export default function DeleteDialog({ row, fetchContacts }) {
+export default function DeleteDialog({ row, fetchContacts, handleSnack }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { axios, URL } = useContext(MyContext);
@@ -30,10 +29,11 @@ export default function DeleteDialog({ row, fetchContacts }) {
         fetchContacts();
         handleClose();
         setLoading(false);
+        handleSnack('Contato excluído com sucesso!', 'success');
       })
       .catch(() => {
-        alert('Erro ao deletar contato');
         setLoading(false);
+        handleSnack('Erro ao excluir contato!', 'error');
       });
   }
 

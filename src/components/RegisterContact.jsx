@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, Snackbar, Alert } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import MyContext from '../context';
 
@@ -8,6 +8,9 @@ function RegisterContact() {
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState('');
+  const [snackColor, setSnackColor] = useState('');
   const { axios, URL } = useContext(MyContext);
 
   function handleSubmit(e) {
@@ -21,19 +24,30 @@ function RegisterContact() {
         mobile,
         email,
       })
-        .then(response => {
-          alert('Contato cadastrado com sucesso');
+        .then(() => {
+          setSnackColor('success');
+          setSnackMessage('Contato cadastrado com sucesso!');
+          setOpen(true);
           setLoading(false);
           setName('');
           setMobile('');
           setEmail('');
         })
-        .catch(error => {
-          console.log(error);
+        .catch(() => {
+          setSnackColor('error');
+          setSnackMessage('Erro ao cadastrar contato!');
+          setOpen(true);
           setLoading(false);
         });
     }
   }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   return (
     <Box sx={{
@@ -106,6 +120,11 @@ function RegisterContact() {
           Cadastrar contato
         </LoadingButton>
       </Box>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={snackColor} sx={{ width: '100%' }}>
+          {snackMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

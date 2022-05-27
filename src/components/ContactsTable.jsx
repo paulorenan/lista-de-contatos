@@ -7,12 +7,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import MyContext from '../context';
-import { Button } from '@mui/material';
+import { Snackbar, Alert } from '@mui/material';
 import EditDialog from './EditDialog';
 import DeleteDialog from './DeleteDialog';
 
 export default function BasicTable() {
   const [rows, setRows] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [snackMessage, setSnackMessage] = useState('');
+  const [snackColor, setSnackColor] = useState('');
   const {axios, URL, handleLogout} = useContext(MyContext);
 
   useEffect(() => {
@@ -35,6 +38,18 @@ export default function BasicTable() {
       });
   }
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  function handleSnack(message, color) {
+    setSnackMessage(message);
+    setSnackColor(color);
+    setOpen(true);
+  }
 
   function telMask(number){
     number= number.replace(/\D/g,"");
@@ -98,13 +113,18 @@ export default function BasicTable() {
               <TableCell sx={rowsStyle}>{telMask(row.mobile)}</TableCell>
               <TableCell sx={rowsStyle}>{row.email}</TableCell>
               <TableCell sx={rowsStyle}>
-                <EditDialog row={row} fetchContacts={fetchContacts} />
-                <DeleteDialog row={row} fetchContacts={fetchContacts} />
+                <EditDialog row={row} fetchContacts={fetchContacts} handleSnack={handleSnack}/>
+                <DeleteDialog row={row} fetchContacts={fetchContacts} handleSnack={handleSnack}/>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={snackColor} sx={{ width: '100%' }}>
+          {snackMessage}
+        </Alert>
+      </Snackbar>
     </TableContainer>
   );
 }

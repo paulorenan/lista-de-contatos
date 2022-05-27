@@ -9,7 +9,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import editIcon from '../assets/edit.svg';
 import MyContext from '../context';
 
-export default function EditDialog({row, fetchContacts}) {
+export default function EditDialog({row, fetchContacts, handleSnack}) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(row.name);
   const [mobile, setMobile] = useState(row.mobile);
@@ -36,10 +36,11 @@ export default function EditDialog({row, fetchContacts}) {
         fetchContacts();
         handleClose();
         setLoading(false);
+        handleSnack('Contato editado com sucesso!', 'success');
       })
       .catch(() => {
-        alert('Erro ao editar contato');
         setLoading(false);
+        handleSnack('Erro ao editar contato!', 'error');
       });
   }
 
