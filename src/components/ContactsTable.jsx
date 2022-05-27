@@ -8,30 +8,30 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import MyContext from '../context';
 import { Button } from '@mui/material';
-import deleteIcon from '../assets/trash.svg';
 import EditDialog from './EditDialog';
+import DeleteDialog from './DeleteDialog';
 
 export default function BasicTable() {
   const [rows, setRows] = useState([]);
-  const {axios, URL} = useContext(MyContext);
+  const {axios, URL, handleLogout} = useContext(MyContext);
 
   useEffect(() => {
     axios.get(`${URL}/contacts`)
       .then(response => {
         setRows(response.data);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
+        handleLogout();
       });
-  }, [axios, URL]);
+  }, [axios, URL, handleLogout]);
 
   function fetchContacts() {
     axios.get(`${URL}/contacts`)
       .then(response => {
         setRows(response.data);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
+        handleLogout();
       });
   }
 
@@ -99,10 +99,7 @@ export default function BasicTable() {
               <TableCell sx={rowsStyle}>{row.email}</TableCell>
               <TableCell sx={rowsStyle}>
                 <EditDialog row={row} fetchContacts={fetchContacts} />
-                <Button variant="text" color="primary" size="small" sx={{marginLeft: '1rem'}}>
-                  <img src={deleteIcon} alt="Excluir" />
-                  <p className='actionBtn'>Excluir</p>
-                </Button>
+                <DeleteDialog row={row} fetchContacts={fetchContacts} />
               </TableCell>
             </TableRow>
           ))}

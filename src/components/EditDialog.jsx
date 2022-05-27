@@ -9,7 +9,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import editIcon from '../assets/edit.svg';
 import MyContext from '../context';
 
-export default function FormDialog({row, fetchContacts}) {
+export default function EditDialog({row, fetchContacts}) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(row.name);
   const [mobile, setMobile] = useState(row.mobile);
@@ -37,8 +37,8 @@ export default function FormDialog({row, fetchContacts}) {
         handleClose();
         setLoading(false);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
+        alert('Erro ao editar contato');
         setLoading(false);
       });
   }
