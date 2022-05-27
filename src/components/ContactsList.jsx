@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import ContactsTable from './ContactsTable';
 import '../styles/Contacts.css';
 
@@ -16,7 +16,7 @@ function ContactsList() {
       padding: '2rem',
     }}>
       <div className='contactsList'>
-        <Typography className='contactsTitle'>Listagem de contatos</Typography>
+        <p className='contactsTitle'>Listagem de contatos</p>
         <Button className='contactsButton' variant='contained' color='primary'>
           Adicionar novo contato
         </Button>
