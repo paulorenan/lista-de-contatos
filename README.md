@@ -35,6 +35,14 @@ Inicie a aplicação
   npm start
 ```
 
+Usuario padrão para entrar no site:
+```json
+{
+  "email": "user@diwe.com.br",
+  "password": "Mob20we23##"
+}
+```
+
 
 ## Screenshots
 
