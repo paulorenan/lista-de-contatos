@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
-import { Box, Button, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import MyContext from '../context';
 
 function RegisterContact() {
@@ -7,6 +8,32 @@ function RegisterContact() {
   const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const { axios, URL } = useContext(MyContext);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (name === '' || mobile === '' || email === '') {
+      alert('Preencha todos os campos');
+    } else {
+      setLoading(true);
+      axios.post(`${URL}/contacts`, {
+        name,
+        mobile,
+        email,
+      })
+        .then(response => {
+          alert('Contato cadastrado com sucesso');
+          setLoading(false);
+          setName('');
+          setMobile('');
+          setEmail('');
+        })
+        .catch(error => {
+          console.log(error);
+          setLoading(false);
+        });
+    }
+  }
 
   return (
     <Box sx={{
@@ -30,7 +57,7 @@ function RegisterContact() {
         <h1 className='registerTitle'>Cadastre um novo contato</h1>
         <h2 className='registerSubTitle'>Preencha as informações para cadastrar um novo contato</h2>
       </Box>
-      <Box component="form" sx={{ width: '100%' }}>
+      <Box component="form" sx={{ width: '100%' }} onSubmit={handleSubmit}>
         <TextField
           margin="normal"
           required
@@ -70,9 +97,14 @@ function RegisterContact() {
             onChange={(e) => setMobile(e.target.value)}
           />
         </Box>
-        <Button className='registerBtn' variant='contained' color='primary'>
+        <LoadingButton
+          className='registerBtn'
+          type='submit'
+          variant='contained'
+          loading={loading}
+        >
           Cadastrar contato
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   )
